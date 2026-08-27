@@ -109,7 +109,7 @@ app.get('/api/excel-data', async (req, res) => {
 });
 
 // React Router fallback (serve index.html for all other routes)
-app.get('*', (req, res) => {
+app.get('/{*splat}', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
