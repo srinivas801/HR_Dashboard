@@ -293,21 +293,30 @@ export const fetchInterviewData = async (msalContext = null) => {
       const arrayBuffer = await response.arrayBuffer();
       return parseExcelBuffer(arrayBuffer);
     } catch (graphErr) {
-      console.warn("Direct Microsoft Graph fetch failed. Falling back to local data.", graphErr.message || graphErr);
+      console.warn("Direct Microsoft Graph fetch failed. Falling back to backend/local data.", graphErr.message || graphErr);
     }
   }
 
-  // Fetch local Excel file statically from the public folder
   try {
-    console.log("Fetching Excel workbook from local path: /data/MIS.xlsx");
-    const response = await fetch("/data/MIS.xlsx");
+    console.log("Fetching Excel workbook from backend API: /api/excel-data");
+    const response = await fetch("/api/excel-data");
     if (!response.ok) {
-      throw new Error(`Failed to fetch /data/MIS.xlsx, status: ${response.status}`);
+      throw new Error(`Backend API returned status ${response.status}`);
     }
     const arrayBuffer = await response.arrayBuffer();
     return parseExcelBuffer(arrayBuffer);
   } catch (err) {
-    console.error("Critical error: Failed to load local Excel data.", err);
+    console.error("Failed to load interview data from API, trying direct public fallback...", err);
+    // Client-side direct public fallback as safety measure
+    try {
+      const response = await fetch("/data/MIS.xlsx");
+      if (response.ok) {
+        const arrayBuffer = await response.arrayBuffer();
+        return parseExcelBuffer(arrayBuffer);
+      }
+    } catch (fallbackErr) {
+      console.error("Direct fallback failed:", fallbackErr);
+    }
     throw err;
   }
 };
