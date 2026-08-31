@@ -90,7 +90,7 @@ const Sidebar = ({
             component="img"
             src="/assets/Microgenesis_logo.jpg"
             alt="Microgenesis logo"
-            sx={{ width: 44, height: 44, borderRadius: 2, objectFit: "contain", boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)" }}
+            sx={{ width: 120, height: "auto", borderRadius: 2, objectFit: "contain", boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)" }}
           />
           <div>
             <Typography variant="subtitle1" fontWeight={800} color="#ffffff" sx={{ lineHeight: 1.2 }}>

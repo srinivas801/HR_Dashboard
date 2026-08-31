@@ -136,7 +136,7 @@ const Dashboard = () => {
               component="img"
               src="/assets/Microgenesis_logo.jpg"
               alt="Microgenesis Logo"
-              sx={{ width: 64, height: 64, borderRadius: 2, objectFit: "contain" }}
+              sx={{ width: 120, height: "auto", borderRadius: 2, objectFit: "contain" }}
             />
           </Box>
           <Typography variant="h5" fontWeight={800} color="#ffffff" gutterBottom>

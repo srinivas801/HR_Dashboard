@@ -59,7 +59,7 @@ const Header = ({ totalRecords, sheetOptions, activeSheet, onSelectSheet, onCust
               component="img"
               src={microgenesisLogo}
               alt="Microgenesis logo"
-              sx={{ width: 48, height: 48, borderRadius: 2, objectFit: "contain" }}
+              sx={{ width: 120, height: "auto", borderRadius: 2, objectFit: "contain" }}
             />
             <Box>
               <Typography variant="h5" fontWeight={800} color="#0f172a">
