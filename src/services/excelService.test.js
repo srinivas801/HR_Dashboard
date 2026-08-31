@@ -15,9 +15,13 @@ test('parseExcelBuffer maps MIS workbook headers to dashboard fields', () => {
   const parsed = parseExcelBuffer(fileBuffer);
 
   assert.ok(parsed.sheetNames.includes('MBRDI'), 'expected MBRDI sheet to be parsed');
+  assert.ok(parsed.sheetNames.includes('Wipro'), 'expected Wipro sheet to be parsed');
   
   const mbrdiData = parsed.sheets.MBRDI;
   assert.ok(mbrdiData.length > 0, 'expected at least one row from MBRDI sheet');
+
+  const wiproData = parsed.sheets.Wipro;
+  assert.ok(wiproData.length > 0, 'expected at least one row from Wipro sheet');
 
   const first = mbrdiData[0];
   assert.equal(first.Position, 'SDM (Non Billable)', 'expected the first imported requirement to match available DTICI/MBRDI data');

@@ -18,8 +18,8 @@ const RequirementsTable = ({ data, onSelectRequirement }) => {
     {
       field: "Requirement",
       headerName: "Requirement",
-      flex: 2,
-      minWidth: 280,
+      flex: 1.3,
+      minWidth: 240,
       renderCell: (params) => (
         <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", width: "100%", py: 1 }}>
           <Typography variant="body2" fontWeight={700} color="#0f172a" sx={{ whiteSpace: "normal" }}>
@@ -59,8 +59,8 @@ const RequirementsTable = ({ data, onSelectRequirement }) => {
     {
       field: "Type",
       headerName: "Type",
-      flex: 0.8,
-      minWidth: 110,
+      flex: 0.7,
+      minWidth: 100,
       renderCell: (params) => {
         const style = getHiringTypeStyle(params.value);
         return (
@@ -80,8 +80,8 @@ const RequirementsTable = ({ data, onSelectRequirement }) => {
     {
       field: "Billable",
       headerName: "Billable",
-      flex: 0.9,
-      minWidth: 130,
+      flex: 0.7,
+      minWidth: 100,
       renderCell: (params) => (
         <Chip
           label={params.value || "N/A"}
@@ -100,8 +100,8 @@ const RequirementsTable = ({ data, onSelectRequirement }) => {
     {
       field: "Status",
       headerName: "Status",
-      flex: 1,
-      minWidth: 130,
+      flex: 0.8,
+      minWidth: 110,
       renderCell: (params) => {
         const valueStr = String(params.value || "");
         const isOffer = valueStr.toLowerCase().includes("offer");

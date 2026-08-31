@@ -33,7 +33,7 @@ const Dashboard = () => {
   const isAuthenticated = useIsAuthenticated();
 
   const isMsalConfigured = !!import.meta.env.VITE_AZURE_CLIENT_ID;
-  const allowedSheets = ["MBRDI", "DTICI", "Persistent"];
+  const allowedSheets = ["MBRDI", "DTICI", "Persistent", "Wipro"];
 
   const loadData = async () => {
     setLoading(true);

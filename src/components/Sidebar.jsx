@@ -26,6 +26,7 @@ const getSheetIcon = (name) => {
     case "DTICI":
       return <Business sx={{ fontSize: 20 }} />;
     case "Persistent":
+    case "Wipro":
       return <Work sx={{ fontSize: 20 }} />;
     case "Recruitment":
       return <People sx={{ fontSize: 20 }} />;
@@ -42,6 +43,8 @@ const getSheetLabel = (name) => {
       return "DTICI Requirements";
     case "Persistent":
       return "Persistent Req.";
+    case "Wipro":
+      return "Wipro Req.";
     case "Recruitment":
       return "Candidate Tracker";
     default:

@@ -129,8 +129,12 @@ const parseNum = (val, defaultVal = 0) => {
 };
 
 const parseOffered = (val) => {
-  if (!val) return 0;
+  if (val === undefined || val === null || String(val).trim() === "") return 0;
+  if (typeof val === "number") return val;
   const str = String(val).trim().toLowerCase();
+  if (/^\d+$/.test(str)) {
+    return parseInt(str, 10);
+  }
   const match = str.match(/(\d+)\s*-\s*offer/i) || str.match(/(\d+)\s*offer/i);
   if (match) {
     return parseInt(match[1], 10);
@@ -150,7 +154,8 @@ const parseRequirementsSheet = (rawData) => {
       const rawScreen = getFirstNonEmptyValue(item, ["In Screen", "Screening", "In Screening", "Screen Count"]);
       const rawTech = getFirstNonEmptyValue(item, ["In Tech", "L1 Discussion", "L2 Discussion", "Tech Discussion", "Technical"]);
       const rawClient = getFirstNonEmptyValue(item, ["In Client", "Client Round", "Client Discussion", "Client"]);
-      const rawStatus = getFirstNonEmptyValue(item, ["Status", "Current Status", "Offer / Reject", "Offer/Reject", "Stage"]);
+      const rawStatus = getFirstNonEmptyValue(item, ["Status", "Current Status", "Stage"]);
+      const rawOffer = getFirstNonEmptyValue(item, ["Offer", "Offers", "Offer / Reject", "Offer/Reject", "Offered", "Offered Count"]);
       const rawJoined = getFirstNonEmptyValue(item, ["Joined", "Joined Count", "Onboarded"]);
       const rawRemarks = getFirstNonEmptyValue(item, ["Remarks", "Remarks / Comments", "Notes", "Comment", "Feedback"]);
       const rawEndUser = getFirstNonEmptyValue(item, ["End User", "Interviewer", "Recruiter", "Assigned Interviewer"]);
@@ -180,7 +185,7 @@ const parseRequirementsSheet = (rawData) => {
         InTech: parseNum(rawTech, 0),
         InClient: parseNum(rawClient, 0),
         Status: rawStatus ? String(rawStatus).trim() : "Open",
-        Offered: parseOffered(rawStatus),
+        Offered: parseOffered(rawOffer),
         Remarks: rawRemarks ? String(rawRemarks).trim() : "-",
         EndUser: rawEndUser ? String(rawEndUser).trim() : "N/A",
         Interviewer: rawEndUser ? String(rawEndUser).trim() : "N/A", // backward compatibility
@@ -315,7 +320,7 @@ export const parseExcelBuffer = (arrayBuffer) => {
 
   const sheetsData = {};
   const sheetNames = workbook.SheetNames.filter(name => 
-    ["MBRDI", "DTICI", "Persistent", "Recruitment"].includes(name)
+    ["MBRDI", "DTICI", "Persistent", "Wipro", "Recruitment"].includes(name)
   );
 
   if (sheetNames.length === 0 && workbook.SheetNames.length > 0) {
@@ -331,7 +336,7 @@ export const parseExcelBuffer = (arrayBuffer) => {
     const worksheet = workbook.Sheets[sheetName];
     const rawData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
 
-    if (["MBRDI", "DTICI", "Persistent"].includes(sheetName)) {
+    if (["MBRDI", "DTICI", "Persistent", "Wipro"].includes(sheetName)) {
       sheetsData[sheetName] = parseRequirementsSheet(rawData);
     } else if (sheetName === "Recruitment") {
       sheetsData[sheetName] = parseRecruitmentSheet(rawData);
